@@ -41,7 +41,7 @@ object ExpressCompanyUtils {
 
     private object Kuaidi100Code {
         const val AN_NENG = "annengwuliu"
-        const val BAI_SHI = "baishiwuliu"
+        const val BAI_SHI = "jtexpress"
         val CHENG_BANG = null // "chengbang" // Incorrect
         const val DE_BANG = "debangwuliu"
         const val DHL = "dhl"
