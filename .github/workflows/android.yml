@@ -1,0 +1,36 @@
+name: Android CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HH
+          utcOffset: "+08:00"
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew clean ":app:assembleRelease"
+      - name: Upload Apk
+        uses: actions/upload-artifact@v2.2.0
+        with:
+          name: ${{ steps.current-time.outputs.formattedTime }}
+          path: app/build/outputs/apk/release/*.apk
